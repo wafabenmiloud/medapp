@@ -40,7 +40,10 @@ class _SignupScreenState extends State<SignupScreen> {
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
                           color: Color.fromRGBO(255, 255, 255, 0.9),
-                          child: const TextField(
+                          child: TextField(
+                            onChanged: (value) {
+                              username = value;
+                            },
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.person),
                                 hintText: "Username",
@@ -53,7 +56,10 @@ class _SignupScreenState extends State<SignupScreen> {
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
                           color: Color.fromRGBO(255, 255, 255, 0.9),
-                          child: const TextField(
+                          child: TextField(
+                            onChanged: (value) {
+                              email = value;
+                            },
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.email),
                                 hintText: "Email",
@@ -66,7 +72,10 @@ class _SignupScreenState extends State<SignupScreen> {
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
                           color: Color.fromRGBO(255, 255, 255, 0.9),
-                          child: const TextField(
+                          child: TextField(
+                            onChanged: (value) {
+                              phone = value;
+                            },
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.phone),
                                 hintText: "Phone",
@@ -80,6 +89,9 @@ class _SignupScreenState extends State<SignupScreen> {
                           margin: EdgeInsets.only(right: 30, left: 30),
                           color: Color.fromRGBO(255, 255, 255, 0.9),
                           child: TextField(
+                            onChanged: (value) {
+                              password = value;
+                            },
                             obscureText: passToggle ? true : false,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.lock),
@@ -141,12 +153,17 @@ class _SignupScreenState extends State<SignupScreen> {
                             if (val.data['success']) {
                               // token = val.data['token'];
                               Fluttertoast.showToast(
-                                  msg: 'Logged In successfully',
+                                  msg: 'User added successfully',
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   backgroundColor: Colors.green,
                                   textColor: Colors.white,
                                   fontSize: 16.0);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()),
+                              );
                             }
                           });
                         },

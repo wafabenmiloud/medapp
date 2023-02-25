@@ -1,3 +1,4 @@
+import 'package:chatapp/dashboard.dart';
 import 'package:chatapp/services/authservice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -119,12 +120,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (val.data['success']) {
                               token = val.data['token'];
                               Fluttertoast.showToast(
-                                  msg: val.data['msg'],
+                                  msg: 'LoggedIn successfully',
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   backgroundColor: Colors.green,
                                   textColor: Colors.white,
                                   fontSize: 16.0);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Dashboard()),
+                              );
                             }
                           });
                         },

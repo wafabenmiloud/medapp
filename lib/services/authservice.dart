@@ -5,23 +5,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 class AuthService {
   Dio dio = new Dio();
   login(email, password) async {
-    try {
-      return await dio.post('http://192.168.183.1:4000/login',
-          data: {"email": email, "password": password},
-          options: Options(contentType: Headers.formUrlEncodedContentType));
-    } on DioError catch (e) {
-      Fluttertoast.showToast(
-          msg: e.response?.data['msg'] ?? 'Unknown error occurred',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
+    return await dio.post('https://medapp-jts3.onrender.com/login',
+        data: {"email": email, "password": password},
+        options: Options(contentType: Headers.formUrlEncodedContentType));
   }
 
   register(username, email, phone, password) async {
-    return await dio.post('http://192.168.183.1:4000/register',
+    return await dio.post('https://medapp-jts3.onrender.com/register',
         data: {
           "username": username,
           "email": email,
@@ -33,6 +23,6 @@ class AuthService {
 
   profile(token) async {
     dio.options.headers['Authorization'] = 'Bearer $token';
-    return await dio.get('http://192.168.183.1:4000/profile');
+    return await dio.get('https://medapp-jts3.onrender.com/profile');
   }
 }
