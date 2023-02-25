@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:chatapp/constants.dart';
 
 import 'login_screen.dart';
 
@@ -20,7 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Color.fromRGBO(13, 23, 36, 1)),
+      theme: ThemeData(scaffoldBackgroundColor: Color(0XFFECEEFF)),
       home: Scaffold(
         body: Column(
           children: <Widget>[
@@ -39,62 +40,63 @@ class _SignupScreenState extends State<SignupScreen> {
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Color.fromRGBO(255, 255, 255, 0.9),
+                          color: Colors.white,
                           child: TextField(
                             onChanged: (value) {
                               username = value;
                             },
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.person),
+                                prefixIcon: Icon(Icons.person,
+                                    color: secondaryColor),
                                 hintText: "Username",
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(13, 23, 36, 1)),
+                                hintStyle: TextStyle(color: secondaryColor),
                                 border: InputBorder.none),
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Color.fromRGBO(255, 255, 255, 0.9),
+                          color: Colors.white,
                           child: TextField(
                             onChanged: (value) {
                               email = value;
                             },
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.email),
+                                prefixIcon:
+                                    Icon(Icons.email, color: secondaryColor),
                                 hintText: "Email",
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(13, 23, 36, 1)),
+                                hintStyle: TextStyle(color: secondaryColor),
                                 border: InputBorder.none),
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Color.fromRGBO(255, 255, 255, 0.9),
+                          color: Colors.white,
                           child: TextField(
                             onChanged: (value) {
                               phone = value;
                             },
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.phone),
+                                prefixIcon:
+                                    Icon(Icons.phone, color: secondaryColor),
                                 hintText: "Phone",
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(13, 23, 36, 1)),
+                                hintStyle: TextStyle(color: secondaryColor),
                                 border: InputBorder.none),
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Color.fromRGBO(255, 255, 255, 0.9),
+                          color: Colors.white,
                           child: TextField(
                             onChanged: (value) {
                               password = value;
                             },
                             obscureText: passToggle ? true : false,
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.lock),
+                                prefixIcon:
+                                    Icon(Icons.lock, color: secondaryColor),
                                 suffixIcon: InkWell(
                                   onTap: () {
                                     if (passToggle == true) {
@@ -109,8 +111,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       : Icon(CupertinoIcons.eye_fill),
                                 ),
                                 hintText: "Password",
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(13, 23, 36, 1)),
+                                hintStyle: TextStyle(color: secondaryColor),
                                 border: InputBorder.none),
                           ),
                         ),
@@ -135,7 +136,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           top: 10, bottom: 10, right: 30, left: 30),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(159, 165, 223, 1),
+                          backgroundColor: primaryColor,
                           minimumSize: const Size(double.infinity, 50),
                           shape: const StadiumBorder(),
                         ),
