@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:chatapp/screens/dashboard.dart';
 import 'package:chatapp/services/authservice.dart';
 import 'package:chatapp/widgets/navbar.dart';
@@ -51,8 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: secondaryColor,
                                   ),
                                   hintText: "Email",
-                                  hintStyle:
-                                      TextStyle(color: secondaryColor),
+                                  hintStyle: TextStyle(color: secondaryColor),
                                   border: InputBorder.none),
                               onChanged: (value) {
                                 email = value;

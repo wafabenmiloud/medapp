@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:chatapp/services/authservice.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +48,8 @@ class _SignupScreenState extends State<SignupScreen> {
                               username = value;
                             },
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.person,
-                                    color: secondaryColor),
+                                prefixIcon:
+                                    Icon(Icons.person, color: secondaryColor),
                                 hintText: "Username",
                                 hintStyle: TextStyle(color: secondaryColor),
                                 border: InputBorder.none),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:chatapp/screens/dashboard.dart';
 import 'package:chatapp/screens/signup_screen.dart';
 import 'package:chatapp/widgets/navbar.dart';
