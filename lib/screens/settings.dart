@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatapp/constants.dart';
+import 'package:chatapp/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: bgColor),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SingleChildScrollView(
@@ -53,7 +54,7 @@ class _SettingsState extends State<Settings> {
                       child: Icon(
                         CupertinoIcons.person,
                         color: Colors.blue,
-                        size: 35,
+                        size: 25,
                       )),
                   title: Text(
                     "Profile",
@@ -74,7 +75,7 @@ class _SettingsState extends State<Settings> {
                       child: Icon(
                         Icons.notifications_none_outlined,
                         color: Colors.amber,
-                        size: 35,
+                        size: 25,
                       )),
                   title: Text(
                     "Notifications",
@@ -96,7 +97,7 @@ class _SettingsState extends State<Settings> {
                       child: Icon(
                         Icons.privacy_tip_outlined,
                         color: Colors.deepPurple,
-                        size: 35,
+                        size: 25,
                       )),
                   title: Text(
                     "Privacy",
@@ -117,7 +118,7 @@ class _SettingsState extends State<Settings> {
                       child: Icon(
                         Icons.settings_suggest_outlined,
                         color: Colors.green,
-                        size: 35,
+                        size: 25,
                       )),
                   title: Text(
                     "General",
@@ -139,7 +140,7 @@ class _SettingsState extends State<Settings> {
                       child: Icon(
                         Icons.info_outline_rounded,
                         color: Colors.indigo,
-                        size: 35,
+                        size: 25,
                       )),
                   title: Text(
                     "About Us",
@@ -153,7 +154,13 @@ class _SettingsState extends State<Settings> {
                 Divider(height: 40),
                 SizedBox(height: 20),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()),
+                    );
+                  },
                   leading: Container(
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -161,7 +168,7 @@ class _SettingsState extends State<Settings> {
                       child: Icon(
                         Icons.logout,
                         color: Colors.red,
-                        size: 35,
+                        size: 25,
                       )),
                   title: Text(
                     "LogOut",

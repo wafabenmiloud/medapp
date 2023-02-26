@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: bgColor),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       home: Scaffold(
         body: Column(
           children: <Widget>[
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Colors.white,
+                          color: bgColor,
                           child: TextField(
                               decoration: InputDecoration(
                                   prefixIcon: Icon(
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Colors.white,
+                          color: bgColor,
                           child: TextField(
                             onChanged: (value) {
                               password = value;

@@ -23,7 +23,7 @@ class _ScheduleState extends State<Schedule> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: bgColor),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SingleChildScrollView(
@@ -47,7 +47,7 @@ class _ScheduleState extends State<Schedule> {
                   padding: EdgeInsets.all(5),
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: bgColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Row(

@@ -91,7 +91,8 @@ class _AppointmentState extends State<Appointment> {
                             Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                  color: Colors.amber, shape: BoxShape.circle),
+                                  color: Colors.amber.shade400,
+                                  shape: BoxShape.circle),
                               child: Icon(
                                 Icons.call,
                                 color: Colors.white,
@@ -104,7 +105,8 @@ class _AppointmentState extends State<Appointment> {
                             Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                  color: Colors.amber, shape: BoxShape.circle),
+                                  color: Colors.amber.shade400,
+                                  shape: BoxShape.circle),
                               child: Icon(
                                 CupertinoIcons.chat_bubble_text_fill,
                                 color: Colors.white,
@@ -163,7 +165,7 @@ class _AppointmentState extends State<Appointment> {
                       SizedBox(width: 10),
                       Icon(
                         Icons.star,
-                        color: Colors.amber,
+                        color: Colors.amber.shade400,
                       ),
                       Text(
                         "4.9",
@@ -235,7 +237,7 @@ class _AppointmentState extends State<Appointment> {
                                     children: [
                                       Icon(
                                         Icons.star,
-                                        color: Colors.amber,
+                                        color: Colors.amber.shade400,
                                       ),
                                       Text(
                                         "4.9",

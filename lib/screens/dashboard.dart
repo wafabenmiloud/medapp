@@ -28,7 +28,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: bgColor),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       home: Scaffold(
         body: SingleChildScrollView(
           padding: EdgeInsets.only(top: 40),
@@ -45,7 +45,7 @@ class _DashboardState extends State<Dashboard> {
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w500,
-                          color: Color(0XFF0D1724)),
+                          color: secondaryColor),
                     ),
                     CircleAvatar(
                       radius: 25,
@@ -87,7 +87,7 @@ class _DashboardState extends State<Dashboard> {
                               size: 35,
                             ),
                           ),
-                          SizedBox(height: 30),
+                          SizedBox(height: 25),
                           Text(
                             "Clinic Visit",
                             style: TextStyle(
@@ -107,54 +107,6 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 6,
-                              spreadRadius: 4,
-                            )
-                          ]),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: bgColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.home_filled,
-                              color: primaryColor,
-                              size: 35,
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Text(
-                            "Home Visit",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Call the doctor home",
-                            style: TextStyle(
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
               SizedBox(height: 25),
@@ -165,7 +117,7 @@ class _DashboardState extends State<Dashboard> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    color: Colors.black54,
+                    color: secondaryColor,
                   ),
                 ),
               ),
@@ -181,7 +133,7 @@ class _DashboardState extends State<Dashboard> {
                             EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                         padding: EdgeInsets.symmetric(horizontal: 25),
                         decoration: BoxDecoration(
-                            color: Colors.amber,
+                            color: secondaryColor,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
@@ -210,12 +162,10 @@ class _DashboardState extends State<Dashboard> {
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black54),
+                      color: secondaryColor),
                 ),
               ),
-              GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
+              ListView.builder(
                 itemCount: 8,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -232,48 +182,46 @@ class _DashboardState extends State<Dashboard> {
                       margin: EdgeInsets.all(10),
                       padding: EdgeInsets.symmetric(vertical: 15),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 4,
-                              spreadRadius: 2,
-                            )
-                          ]),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        color: bgColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CircleAvatar(
                             radius: 35,
                             backgroundImage:
                                 AssetImage("images/${imgs[index]}"),
                           ),
-                          Text(
-                            "Dr. Doctor Name",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black54),
-                          ),
-                          Text(
-                            "Therapist",
-                            style: TextStyle(color: Colors.black45),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.amber,
+                              Text(
+                                "Dr. Doctor Name",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black54),
                               ),
                               Text(
-                                "4.9",
+                                "Therapist",
                                 style: TextStyle(color: Colors.black45),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber.shade400,
+                                  ),
+                                  Text(
+                                    "4.9",
+                                    style: TextStyle(color: Colors.black45),
+                                  )
+                                ],
                               )
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),

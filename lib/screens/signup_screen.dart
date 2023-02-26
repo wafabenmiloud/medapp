@@ -23,7 +23,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Color(0XFFECEEFF)),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       home: Scaffold(
         body: Column(
           children: <Widget>[
@@ -42,7 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Colors.white,
+                          color: bgColor,
                           child: TextField(
                             onChanged: (value) {
                               username = value;
@@ -58,7 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Colors.white,
+                          color: bgColor,
                           child: TextField(
                             onChanged: (value) {
                               email = value;
@@ -74,7 +74,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Colors.white,
+                          color: bgColor,
                           child: TextField(
                             onChanged: (value) {
                               phone = value;
@@ -90,7 +90,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Container(
                           padding: EdgeInsets.all(10),
                           margin: EdgeInsets.only(right: 30, left: 30),
-                          color: Colors.white,
+                          color: bgColor,
                           child: TextField(
                             onChanged: (value) {
                               password = value;

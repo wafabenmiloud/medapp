@@ -26,12 +26,10 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
           Container(
             padding: EdgeInsets.symmetric(vertical: 5),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12, blurRadius: 4, spreadRadius: 2)
-                ]),
+              color: Colors.white,
+              border: Border.all(color: primaryColor),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -84,20 +82,6 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                           )
                         ],
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.green, shape: BoxShape.circle),
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            "Confirmed",
-                            style: TextStyle(color: Colors.black54),
-                          )
-                        ],
-                      )
                     ],
                   ),
                   SizedBox(height: 15),
@@ -110,7 +94,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                           width: 150,
                           padding: EdgeInsets.symmetric(vertical: 12),
                           decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: Colors.amber.shade400,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
                             child: Text(
@@ -153,12 +137,10 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
           Container(
             padding: EdgeInsets.symmetric(vertical: 5),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12, blurRadius: 4, spreadRadius: 2)
-                ]),
+              color: Colors.white,
+              border: Border.all(color: primaryColor),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -211,20 +193,6 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                           )
                         ],
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.green, shape: BoxShape.circle),
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            "Confirmed",
-                            style: TextStyle(color: Colors.black54),
-                          )
-                        ],
-                      )
                     ],
                   ),
                   SizedBox(height: 15),
