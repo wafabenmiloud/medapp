@@ -26,8 +26,8 @@ class _NavbarState extends State<Navbar> {
       backgroundColor: Colors.white,
       body: _screens[_selectedIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.white,
-        color: primaryColor.withOpacity(0.5),
+        backgroundColor: primaryColor,
+        color: Colors.white,
         animationDuration: Duration(milliseconds: 300),
         onTap: (index) {
           setState(() {

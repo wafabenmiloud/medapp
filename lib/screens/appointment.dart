@@ -60,6 +60,7 @@ class _AppointmentState extends State<Appointment> {
                           backgroundImage: AssetImage("images/doctor1.jpg"),
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               "Dr. Doctor Name",
@@ -75,37 +76,64 @@ class _AppointmentState extends State<Appointment> {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                letterSpacing: 2,
                               ),
                             ),
                             SizedBox(height: 15),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.amber.shade400,
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    Icons.email,
+                                    color: Colors.white,
+                                    size: 15,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  'doctor@gmail.com',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      letterSpacing: 2,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                       color: Colors.amber.shade400,
                                       shape: BoxShape.circle),
                                   child: Icon(
                                     Icons.call,
                                     color: Colors.white,
-                                    size: 25,
+                                    size: 15,
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 20,
+                                  width: 15,
                                 ),
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.amber.shade400,
-                                      shape: BoxShape.circle),
-                                  child: Icon(
-                                    CupertinoIcons.chat_bubble_text_fill,
-                                    color: Colors.white,
-                                    size: 25,
-                                  ),
-                                )
+                                Text(
+                                  '+216 xx xxx xxx',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      letterSpacing: 2,
+                                      color: Colors.white),
+                                ),
                               ],
                             )
                           ],
@@ -118,14 +146,14 @@ class _AppointmentState extends State<Appointment> {
             ),
             SizedBox(height: 20),
             Container(
-              height: MediaQuery.of(context).size.height / 1.5,
+              height: MediaQuery.of(context).size.height / 1.3,
               width: double.infinity,
-              padding: EdgeInsets.only(top: 20, left: 15),
+              padding: EdgeInsets.only(top: 40, left: 15),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50),
                 ),
               ),
               child: Column(
@@ -313,9 +341,9 @@ class _AppointmentState extends State<Appointment> {
                     onTap: () {},
                     child: Container(
                       margin:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                       padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                       decoration: BoxDecoration(
                           color: Colors.amber,
                           borderRadius: BorderRadius.circular(10)),

@@ -30,7 +30,7 @@ class _ProfileState extends State<Profile> {
     final token = prefs.getString('token');
     Dio dio = new Dio();
     dio.options.headers['Authorization'] = 'Bearer $token';
-    final res = await dio.get('http://localhost:4000/profile');
+    final res = await dio.get('https://medapp-jts3.onrender.com/profile');
 
     if (res.data['success']) {
       final msg = res.data['msg'];
@@ -48,111 +48,158 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 50),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Stack(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.arrow_back_ios_new,
-                          color: Colors.white,
-                          size: 25,
-                        ),
+      body: CustomPaint(
+          painter: LogoPainter(),
+          size: const Size(400, 195),
+          child: Container(
+            height: 195,
+            width: 400,
+            margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.white,
+                        size: 25,
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CircleAvatar(
-                          radius: 55,
-                          backgroundImage: AssetImage("images/doctor1.jpg"),
-                        ),
-                        SizedBox(height: 15),
-                        Text(
-                          '$username',
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          '$email',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "+ 216 $phone",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [],
-                        )
-                      ],
                     ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.5,
-              width: double.infinity,
-              padding: EdgeInsets.only(top: 20, left: 15),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+                    Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                      size: 30,
+                    )
+                  ],
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(height: 10),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      radius: 35,
+                      backgroundImage: AssetImage('images/doctor1.jpg'),
+                    ),
+                    const SizedBox(
+                      width: 40,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '$username',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 28,
+                                          color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.email,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          '$email',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              letterSpacing: 2,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.phone,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          '+216 $phone',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              letterSpacing: 2,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )),
     );
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+}
+
+class LogoPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var rect = Offset.zero & size;
+    Paint paint = Paint();
+    Path path = Path();
+    paint.shader = const LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        primaryColor,
+        primaryColor,
+      ],
+    ).createShader(rect);
+    path.lineTo(0, size.height - size.height / 8);
+    path.conicTo(size.width / 1.2, size.height, size.width,
+        size.height - size.height / 8, 9);
+    path.lineTo(size.width, 0);
+    path.close();
+    canvas.drawShadow(path, primaryColor, 4, false);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }

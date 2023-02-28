@@ -14,78 +14,97 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-      home: Scaffold(
-        body: Column(
-          children: <Widget>[
-            Expanded(
-                flex: 2,
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  primaryColor,
+                  Colors.white,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp)),
+        child: Center(
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: 400,
+                left: 0,
+                right: 0,
                 child: Column(
                   children: [
-                    Expanded(
-                      flex: 1,
+                    SvgPicture.asset(
+                      'images/users.svg',
+                      width: 400,
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 250,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Welcome to our medical app.',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Get the care you need, fast.',
+                        style: TextStyle(fontSize: 14, letterSpacing: 1),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                  bottom: 100,
+                  left: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(40.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const LoginScreen()));
+                      },
                       child: Container(
-                        child: OrientationBuilder(
-                          builder: (context, orientation) => Padding(
-                            padding: EdgeInsets.all(30),
-                            child: SvgPicture.asset("images/users.svg"),
+                        height: 60,
+                        decoration: const BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Get Started',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                )),
-            Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: Text(
-                      "Doctors Appointment",
-                      style: TextStyle(
-                          color: secondaryColor,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                          wordSpacing: 2),
-                    ),
-                  ),
-                  Text(
-                    "Appoint Your Doctor",
-                    style: TextStyle(
-                      color: secondaryColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(25),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
-                        minimumSize: const Size(340, 70),
-                        foregroundColor: Colors.white,
-                        elevation: 1,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      },
-                      child: const Text('Get Started',
-                          style: TextStyle(fontSize: 20)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+                  ))
+            ],
+          ),
         ),
       ),
     );

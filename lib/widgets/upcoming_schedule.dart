@@ -18,11 +18,6 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "About Doctor",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 15),
           Container(
             padding: EdgeInsets.symmetric(vertical: 5),
             decoration: BoxDecoration(

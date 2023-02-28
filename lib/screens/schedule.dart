@@ -31,16 +31,18 @@ class _ScheduleState extends State<Schedule> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    "Schedule",
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w500,
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Center(
+                    child: Text(
+                      "Schedule",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 3),
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 35),
                 Container(
                   padding: EdgeInsets.all(5),
                   margin: EdgeInsets.symmetric(horizontal: 10),
