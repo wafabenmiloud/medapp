@@ -1,4 +1,7 @@
+import 'package:chatapp/screens/book_appointment.dart';
+import 'package:chatapp/screens/dashboard.dart';
 import 'package:chatapp/screens/home_screen.dart';
+import 'package:chatapp/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
 void main() {

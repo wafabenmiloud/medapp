@@ -4,7 +4,7 @@ const passport = require('passport')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv');
 
-const Connection = require('./db')
+const Connection = require('./config/db')
 const router = require('./routes')
 
 dotenv.config();
@@ -18,7 +18,7 @@ app.use('/', router);
 
 //passport
 app.use(passport.initialize())
-require('./passport')(passport)
+require('./config/passport')(passport)
 
 //db
 MONGODB_URI=process.env.MONGODB_URI

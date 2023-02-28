@@ -2,12 +2,12 @@ const dotenv = require("dotenv");
 dotenv.config();
 var jwt = require('jwt-simple')
 
-const  User  = require("./model/user");
+const  User  = require("../model/user");
 
 
 const register = async (req,res)=>{
     try{
-        if ((!req.body.username) || (!req.body.email)||(!req.body.phone) || (!req.body.password)) {
+        if ((!req.body.username) || (!req.body.email) || (!req.body.phone) || (!req.body.password)) {
             res.json({success: false, msg: 'Enter all fields'})
         }
         else {
@@ -62,7 +62,12 @@ const profile = async (req,res)=>{
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
             var token = req.headers.authorization.split(' ')[1]
             var decodedtoken = jwt.decode(token, process.env.SECRET)
-            return res.json({success: true, msg: 'Hello ' + decodedtoken.username})
+            var msg = {
+                "username": decodedtoken.username,
+                "email":decodedtoken.email,
+                "phone":decodedtoken.phone
+            }
+            return res.json({success: true, msg: msg})
         }
         else {
             return res.json({success: false, msg: 'No Headers'})
@@ -72,11 +77,29 @@ const profile = async (req,res)=>{
         res.status(500).send({ message: "Internal Server Error" });
     }
 }
-
+const logout = async (req,res) =>{
+    try {
+        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+            var token = req.headers.authorization.split(' ')[1]
+            var decodedtoken = jwt.decode(token, process.env.SECRET)
+            
+            // Set token expiration to a past date to invalidate it
+            decodedtoken.exp = 1;
+            
+            res.json({success: true, msg: 'Logout successful'})
+        }
+        else {
+            return res.json({success: false, msg: 'No Headers'})
+        }
+    } catch {
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+}
 
 
 module.exports = {
    register,
    login,
-   profile
+   profile,
+   logout
   };

@@ -48,73 +48,68 @@ class _AppointmentState extends State<Appointment> {
                           size: 25,
                         ),
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                      )
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    child: Column(
+                    padding: EdgeInsets.symmetric(vertical: 19, horizontal: 20),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CircleAvatar(
                           radius: 35,
                           backgroundImage: AssetImage("images/doctor1.jpg"),
                         ),
-                        SizedBox(height: 15),
-                        Text(
-                          "Dr. Doctor Name",
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "Therapist",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Column(
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: Colors.amber.shade400,
-                                  shape: BoxShape.circle),
-                              child: Icon(
-                                Icons.call,
+                            Text(
+                              "Dr. Doctor Name",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.white,
-                                size: 25,
                               ),
                             ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: Colors.amber.shade400,
-                                  shape: BoxShape.circle),
-                              child: Icon(
-                                CupertinoIcons.chat_bubble_text_fill,
+                            SizedBox(height: 5),
+                            Text(
+                              "Therapist",
+                              style: TextStyle(
                                 color: Colors.white,
-                                size: 25,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.amber.shade400,
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    Icons.call,
+                                    color: Colors.white,
+                                    size: 25,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.amber.shade400,
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    CupertinoIcons.chat_bubble_text_fill,
+                                    color: Colors.white,
+                                    size: 25,
+                                  ),
+                                )
+                              ],
                             )
                           ],
-                        )
+                        ),
                       ],
                     ),
                   )
@@ -289,58 +284,54 @@ class _AppointmentState extends State<Appointment> {
                     subtitle: Text(
                       "address line of the medical center",
                     ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(15),
-        height: 130,
-        decoration: BoxDecoration(color: Colors.white, boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 4, spreadRadius: 2)
-        ]),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Consultation Price",
-                  style: TextStyle(
-                    color: Colors.black54,
                   ),
-                ),
-                Text(
-                  "\$100",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black54),
-                ),
-              ],
-            ),
-            SizedBox(height: 15),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 18),
-                decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text(
-                    "Book appointment",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Consultation Price",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Text(
+                          "\$100",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black54),
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          "Book appointment",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             )
           ],

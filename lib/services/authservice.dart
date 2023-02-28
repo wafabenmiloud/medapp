@@ -1,13 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   Dio dio = new Dio();
   login(email, password) async {
-    return await dio.post('https://medapp-jts3.onrender.com/login',
+    final response = await dio.post('https://medapp-jts3.onrender.com/login',
         data: {"email": email, "password": password},
         options: Options(contentType: Headers.formUrlEncodedContentType));
+
+    if (response.statusCode == 200) {
+      final token = response.data['token'];
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+    }
+
+    return response;
   }
 
   register(username, email, phone, password) async {
@@ -19,10 +29,5 @@ class AuthService {
           "password": password
         },
         options: Options(contentType: Headers.formUrlEncodedContentType));
-  }
-
-  profile(token) async {
-    dio.options.headers['Authorization'] = 'Bearer $token';
-    return await dio.get('https://medapp-jts3.onrender.com/profile');
   }
 }
