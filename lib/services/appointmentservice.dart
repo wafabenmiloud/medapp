@@ -6,30 +6,50 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppointmentService {
   Dio dio = new Dio();
 
-  addappoint(date, time, doctor) async {
-    return await dio.post('http://localhost:4000/addappoint',
-        data: {
-          "date": date,
-          "time": time,
-          "doctor": doctor,
-        },
-        options: Options(contentType: Headers.formUrlEncodedContentType));
+  addappoint(doctor, date, time) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await dio.post(
+      'http://localhost:4000/addappoint',
+      data: {
+        "date": date,
+        "time": time,
+        "doctorname": doctor,
+      },
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        contentType: Headers.jsonContentType,
+      ),
+    );
+    return response;
   }
 
-  updateappoint(date, time) async {
-    return await dio.put('http://localhost:4000/updateappoint',
-        data: {
-          "date": date,
-          "time": time,
-        },
-        options: Options(contentType: Headers.formUrlEncodedContentType));
+  updateappoint(id, date, time) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await dio.put(
+      'http://localhost:4000/updateappoint/$id',
+      data: {
+        "date": date,
+        "time": time,
+      },
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        contentType: Headers.jsonContentType,
+      ),
+    );
+    return response;
   }
 
   deleteappoint(id) async {
-    return await dio.delete('http://localhost:4000/deleteappoint',
-        data: {
-          "id": id,
-        },
-        options: Options(contentType: Headers.formUrlEncodedContentType));
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final res = await dio.delete(
+      'http://localhost:4000/deleteappoint/$id',
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        contentType: Headers.jsonContentType,
+      ),
+    );
   }
 }

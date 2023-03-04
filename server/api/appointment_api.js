@@ -37,8 +37,8 @@ const updateAppointment = async (req, res) => {
       var token = req.headers.authorization.split(" ")[1];
       var decodedtoken = jwt.decode(token, process.env.SECRET);
     }
-
-    const { id, date, time } = req.body;
+    const id = req.params.id;
+    const { date, time } = req.body;
     const appointmentDoc = await Appointment.findById(id);
     const isAuthor =
       JSON.stringify(appointmentDoc.author) ===
@@ -89,8 +89,8 @@ const deleteAppointment = async (req, res) => {
       var decodedtoken = jwt.decode(token, process.env.SECRET);
     }
 
-    const { id } = req.body;
-    const appointmentDoc = await Appointment.findById(id);
+    const  id  = req.params.id;
+    const appointmentDoc = await Appointment.findById(id);    
     const isAuthor =
       JSON.stringify(appointmentDoc.author) ===
       JSON.stringify(decodedtoken._id);

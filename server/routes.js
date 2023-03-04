@@ -7,13 +7,12 @@ const {addAppointment,updateAppointment,getAppointment,deleteAppointment} = requ
 router.post('/register', register );
 router.post('/login', login)
 router.get('/profile', profile)
-router.post('/logout', logout)
 
 //appointment api
 router.post('/addappoint', addAppointment);
-router.put('/updateappoint', updateAppointment);
+router.put('/updateappoint/:id', updateAppointment);
 router.get('/getappoint',getAppointment);
-router.delete('/deleteappoint',deleteAppointment);
+router.delete('/deleteappoint/:id',deleteAppointment);
 
 
 

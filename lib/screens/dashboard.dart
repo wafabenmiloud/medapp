@@ -62,7 +62,7 @@ class _DashboardState extends State<Dashboard> {
                     Container(
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                          color: Colors.amber,
+                          color: Colors.amber.shade400,
                           borderRadius: BorderRadius.circular(12)),
                       child: Icon(
                         Icons.notifications,
@@ -180,7 +180,13 @@ class _DashboardState extends State<Dashboard> {
           Expanded(
               child: Container(
             padding: EdgeInsets.all(25),
-            color: Colors.white,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(50),
+                topRight: Radius.circular(50),
+              ),
+            ),
             child: Center(
               child: Column(
                 children: [

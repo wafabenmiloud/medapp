@@ -1,20 +1,7 @@
-functonalities:
-    logout
+theme (dark/light mode)
 
-
-
-0/theme (dark/light mode)
-1/apointment 
-    add (dashboardScreen)
-    update (Reschedule : ScheduleScreen)
-    delete (Cancel : ScheduleScreen)
-    get (filter by date upcoming/completed : ScheduleScreen)
 2/doctors
     get (dashboardScreen/ScheduleScreen/AppointmentScreen)
 3/patients
-    register
-    login
-    profile
-    logout
     get Notifications
     add/update/delete review

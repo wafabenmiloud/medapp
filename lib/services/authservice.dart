@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService {
   Dio dio = new Dio();
   login(email, password) async {
-    final response = await dio.post('https://medapp-jts3.onrender.com/login',
+    final response = await dio.post('http://localhost:4000/login',
         data: {"email": email, "password": password},
         options: Options(contentType: Headers.formUrlEncodedContentType));
 
@@ -21,7 +21,7 @@ class AuthService {
   }
 
   register(username, email, phone, password) async {
-    return await dio.post('https://medapp-jts3.onrender.com/register',
+    return await dio.post('http://localhost:4000/register',
         data: {
           "username": username,
           "email": email,

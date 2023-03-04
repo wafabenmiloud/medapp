@@ -9,23 +9,20 @@ import 'package:chatapp/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
-class BookAppointment extends StatefulWidget {
-  const BookAppointment({super.key});
+class UpdateAppointment extends StatefulWidget {
+  final String id;
+  final String doctor;
+
+  const UpdateAppointment({required this.id, required this.doctor, Key? key})
+      : super(key: key);
 
   @override
-  State<BookAppointment> createState() => _BookAppointmentState();
+  State<UpdateAppointment> createState() => _UpdateAppointmentState();
 }
 
-class _BookAppointmentState extends State<BookAppointment> {
+class _UpdateAppointmentState extends State<UpdateAppointment> {
   TextEditingController dateInput = TextEditingController();
   TextEditingController timeinput = TextEditingController();
-  List doctors = [
-    "doctor1",
-    "doctor2",
-    "doctor3",
-    "doctor4",
-  ];
-  String selectedDoctor = 'doctor1';
 
   @override
   void initState() {
@@ -78,30 +75,12 @@ class _BookAppointmentState extends State<BookAppointment> {
                         SizedBox(
                           width: 50,
                         ),
-                        DropdownButton<String>(
-                          padding: EdgeInsets.all(10),
-                          alignment: AlignmentDirectional.centerStart,
-                          value: selectedDoctor,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              selectedDoctor = newValue!;
-                            });
-                          },
-                          hint: const Center(
-                              child: Text(
-                            'Select the doctor',
-                            style: TextStyle(color: Colors.grey),
-                          )),
-                          underline: Container(),
-                          items: doctors.map((value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(value,
-                                      style: const TextStyle(fontSize: 18))),
-                            );
-                          }).toList() as List<DropdownMenuItem<String>>,
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(
+                            widget.doctor,
+                            style: TextStyle(fontSize: 20),
+                          ),
                         ),
                       ],
                     ),
@@ -163,14 +142,10 @@ class _BookAppointmentState extends State<BookAppointment> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 80),
                     child: InkWell(
-                      onTap: () {
-                        AppointmentService().addappoint(
-                            selectedDoctor, dateInput.text, timeinput.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Navbar()),
-                        );
+                      onTap: () async {
+                        await AppointmentService().updateappoint(
+                            widget.id, dateInput.text, timeinput.text);
+                        Navigator.pop(context, true);
                       },
                       child: Container(
                         width: 250,
@@ -180,7 +155,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                           child: Text(
-                            "Schedule",
+                            "Reschedule",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

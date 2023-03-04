@@ -30,7 +30,7 @@ class _ProfileState extends State<Profile> {
     final token = prefs.getString('token');
     Dio dio = new Dio();
     dio.options.headers['Authorization'] = 'Bearer $token';
-    final res = await dio.get('https://medapp-jts3.onrender.com/profile');
+    final res = await dio.get('http://localhost:4000/profile');
 
     if (res.data['success']) {
       final msg = res.data['msg'];

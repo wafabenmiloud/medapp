@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:chatapp/constants.dart';
-import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/screens/login_screen.dart';
 import 'package:chatapp/screens/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -91,7 +91,7 @@ class _SettingsState extends State<Settings> {
                         borderRadius: BorderRadius.circular(18)),
                     child: Icon(
                       Icons.notifications_none_outlined,
-                      color: Colors.amber,
+                      color: Colors.amber.shade400,
                     )),
                 title: Text(
                   "Notifications",
@@ -109,7 +109,9 @@ class _SettingsState extends State<Settings> {
               ),
               SizedBox(height: 20),
               ListTile(
-                onTap: () {
+                onTap: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.setString('token', "");
                   Navigator.push(
                     context,
                     MaterialPageRoute(

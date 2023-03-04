@@ -77,29 +77,10 @@ const profile = async (req,res)=>{
         res.status(500).send({ message: "Internal Server Error" });
     }
 }
-const logout = async (req,res) =>{
-    try {
-        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-            var token = req.headers.authorization.split(' ')[1]
-            var decodedtoken = jwt.decode(token, process.env.SECRET)
-            
-            // Set token expiration to a past date to invalidate it
-            decodedtoken.exp = 1;
-            
-            res.json({success: true, msg: 'Logout successful'})
-        }
-        else {
-            return res.json({success: false, msg: 'No Headers'})
-        }
-    } catch {
-        res.status(500).send({ message: "Internal Server Error" });
-    }
-}
 
 
 module.exports = {
    register,
    login,
    profile,
-   logout
   };

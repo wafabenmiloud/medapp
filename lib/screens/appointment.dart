@@ -345,7 +345,7 @@ class _AppointmentState extends State<Appointment> {
                       padding:
                           EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                       decoration: BoxDecoration(
-                          color: Colors.amber,
+                          color: Colors.amber.shade400,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: Text(
