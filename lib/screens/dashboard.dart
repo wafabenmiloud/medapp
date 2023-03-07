@@ -291,7 +291,7 @@ class _DashboardState extends State<Dashboard> {
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        "Dr. Doctor Name",
+                                        "Doctor$index",
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500,

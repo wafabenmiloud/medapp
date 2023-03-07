@@ -20,10 +20,14 @@ class _BookAppointmentState extends State<BookAppointment> {
   TextEditingController dateInput = TextEditingController();
   TextEditingController timeinput = TextEditingController();
   List doctors = [
+    "doctor0",
     "doctor1",
     "doctor2",
     "doctor3",
     "doctor4",
+    "doctor5",
+    "doctor6",
+    "doctor7",
   ];
   String selectedDoctor = 'doctor1';
 
