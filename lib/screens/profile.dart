@@ -5,6 +5,7 @@ import 'package:chatapp/services/authservice.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String username = '';
@@ -30,11 +31,10 @@ class _ProfileState extends State<Profile> {
     final token = prefs.getString('token');
     Dio dio = new Dio();
     dio.options.headers['Authorization'] = 'Bearer $token';
-    final res = await dio.get('http://localhost:4000/profile');
+    final res = await dio.get('https://medapp-jts3.onrender.com/profile');
 
     if (res.data['success']) {
       final msg = res.data['msg'];
-      print(msg);
       setState(() {
         username = msg['username'];
         email = msg['email'];
@@ -85,7 +85,7 @@ class _ProfileState extends State<Profile> {
                   children: [
                     CircleAvatar(
                       radius: 35,
-                      backgroundImage: AssetImage('images/doctor1.jpg'),
+                      child: SvgPicture.asset('images/user.svg'),
                     ),
                     const SizedBox(
                       width: 40,

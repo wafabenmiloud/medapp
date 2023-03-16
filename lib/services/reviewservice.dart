@@ -3,35 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AppointmentService {
+class ReviewService {
   Dio dio = new Dio();
 
-  addappoint(doctor, date, time) async {
+  addreview(id, rate, review) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     final response = await dio.post(
-      'https://medapp-jts3.onrender.com/addappoint',
+      'https://medapp-jts3.onrender.com/addreview/${id}',
       data: {
-        "date": date,
-        "time": time,
-        "doctorname": doctor,
+        "rate": rate,
+        "review": review,
       },
       options: Options(
         headers: {'Authorization': 'Bearer $token'},
         contentType: Headers.jsonContentType,
       ),
     );
+    print(response);
     return response;
   }
 
-  updateappoint(id, date, time) async {
+  updatereview(id, rate, review) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     final response = await dio.put(
-      'https://medapp-jts3.onrender.com/updateappoint/$id',
+      'https://medapp-jts3.onrender.com/updatereview/$id',
       data: {
-        "date": date,
-        "time": time,
+        "rate": rate,
+        "review": review,
       },
       options: Options(
         headers: {'Authorization': 'Bearer $token'},
@@ -41,11 +41,11 @@ class AppointmentService {
     return response;
   }
 
-  deleteappoint(id) async {
+  deletereview(id) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     final res = await dio.delete(
-      'https://medapp-jts3.onrender.com/deleteappoint/$id',
+      'https://medapp-jts3.onrender.com/deletereview/$id',
       options: Options(
         headers: {'Authorization': 'Bearer $token'},
         contentType: Headers.jsonContentType,

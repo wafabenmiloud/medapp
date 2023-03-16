@@ -6,6 +6,10 @@ import 'package:chatapp/screens/book_appointment.dart';
 import 'package:chatapp/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dio/dio.dart';
+
+var doctors = [];
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -16,16 +20,26 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List symptoms = ["Temperature", "Snuffle", "Fever", "Cough", "Cold"];
-  List imgs = [
-    "doctor1.jpg",
-    "doctor2.jpg",
-    "doctor3.jpg",
-    "doctor4.jpg",
-    "doctor1.jpg",
-    "doctor2.jpg",
-    "doctor3.jpg",
-    "doctor4.jpg",
-  ];
+  String img = "user.svg";
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    Dio dio = new Dio();
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    final res = await dio.get('https://medapp-jts3.onrender.com/doctors');
+
+    final msg = res.data['data'];
+    setState(() {
+      doctors = msg;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -257,9 +271,8 @@ class _DashboardState extends State<Dashboard> {
 
                   //doctors
                   ListView.builder(
-                    itemCount: 8,
+                    itemCount: doctors.length,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
@@ -268,7 +281,8 @@ class _DashboardState extends State<Dashboard> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Appointment()),
+                                    builder: (context) => Appointment(
+                                        doctor_id: doctors[index]['_id'])),
                               );
                             },
                             child: Container(
@@ -279,44 +293,47 @@ class _DashboardState extends State<Dashboard> {
                                   borderRadius: BorderRadius.circular(16)),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   CircleAvatar(
-                                    radius: 35,
-                                    backgroundImage:
-                                        AssetImage("images/${imgs[index]}"),
+                                    radius: 30,
+                                    child: SvgPicture.asset("images/$img"),
                                   ),
                                   SizedBox(width: 20),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        "Doctor$index",
+                                        doctors[index]['name'],
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500,
-                                            color: Colors.black54),
+                                            color: Colors.black),
                                       ),
                                       Text(
-                                        "Therapist",
-                                        style: TextStyle(color: Colors.black45),
+                                        doctors[index]['speciality'],
+                                        style: TextStyle(color: Colors.black),
                                       ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.amber.shade400,
-                                          ),
-                                          Text(
-                                            "4.9",
-                                            style: TextStyle(
-                                                color: Colors.black45),
-                                          )
-                                        ],
-                                      )
+                                      Text(
+                                        doctors[index]['city'],
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      // Row(
+                                      //   mainAxisSize: MainAxisSize.min,
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.center,
+                                      //   children: [
+                                      //     Icon(
+                                      //       Icons.star,
+                                      //       color: Colors.amber.shade400,
+                                      //     ),
+                                      //     Text(
+                                      //       "4.9",
+                                      //       style: TextStyle(
+                                      //           color: Colors.black45),
+                                      //     )
+                                      //   ],
+                                      // )
                                     ],
                                   ),
                                 ],
@@ -334,5 +351,10 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

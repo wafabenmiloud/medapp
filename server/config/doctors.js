@@ -1,0 +1,217 @@
+const doctors = [
+    {
+      name: "Raja HEDDA",
+      speciality: "Psychiatrist",
+      city:"Sousse",
+      location:"Rue Ibn El Jazzar Imm. Rouatbi 3ème Etage B.N° 306 En Face de L’Hopital Farhat Hached Sousse Ville",
+    },
+    {
+        name: "Lyes SRAÏRI",
+        speciality: "Psychiatrist",
+        city:"Tunis",
+        location:"Centre Médical CORAL - Avenue Zohra Faïza (en face de la clinique Carthagène) - Bloc A - 10 ème étage - Cabinet N°1 - Centre Urbain Nord Centre Urbain Nord",
+      },
+      {
+        name: "Lilia BAHRINI DABLOUN",
+        speciality: "Psychiatrist",
+        city:"Tunis",
+        location:"Le Carrefour Médical. 1er étage Cabinet A1-9 (en face de l'hôpital Mongi Slim) Aîn Zaghouan",
+      },
+      {
+        name: "Anouar JARRAYA",
+        speciality: "Psychiatrist",
+        city:"Tunis ",
+        location:"4 Habib Chatti Résidence les Jasmins Bloc G 1er étage El Manar 1 Face clinique El Manar El Manar",
+      },
+      {
+        name: "Emna BEN ZINA",
+        speciality: "Psychiatrist",
+        city:"Tunis",
+        location:"1 Rue Sadok Mellouli, Appartement A1-3, Marsa (à côté de café El Alya, en face du Parc Saada) La Marsa",
+      },
+      {
+        name: "Manel BOUABID",
+        speciality: "Dentist ",
+        city:"Tunis",
+        location:"Résidence Ines. Boulevard de la Terre. Zone urbaine nord (en face de l'INSAT, immeuble UIB) Centre Urbain Nord",
+      },
+      {
+        name: "Yasmine CHOUKAÏER",
+        speciality: "Dentist ",
+        city:"Tunis",
+        location:"LE DOYEN MÉDICAL, 2ème étage, cabinet A 2-6 [100 m de l'Hôpital Mongi Slim LA MARSA] - 92, Avenue Fattouma Bourguiba La Marsa",
+      },
+      {
+        name: "Iskander BEN SALAH",
+        speciality: "Dentist ",
+        city:"Sousse",
+        location:"173 rue elfel cité manazeh sahloul sousse Sahloul",
+      },
+      {
+        name: "Yosra TLIJANI BEN FARHAT",
+        speciality: "Dentist ",
+        city:"Ariana",
+        location:"Résidence Hamza 2 ème Etage- Cabinet C2 80 Av. IBN KHOLDOUN - Riadh l'Andalous Riadh Andalous",
+      },
+      {
+        name: "Youssef MESTIRI",
+        speciality: "Dentist ",
+        city:"Tunis",
+        location:"Aouina Avenue Monji Slim Résidence Narjess (au dessus de Pâtisserie Madame Masmoudi) Bloc C4 Étage 6 L'aouina ",
+      },
+      {
+        name: "Skander KAMOUN",
+        speciality: "Ophthalmologist",
+        city:"Tunis",
+        location:"Manar Médical Avenue Tahar Sfar, Bloc A 1er Etage Manar 2 El Manar 2 ",
+      },
+      {
+        name: "Moez HAMMAMI",
+        speciality: "Ophthalmologist",
+        city:"Ben arous",
+        location:"Immeuble Les jasmins Avenue Mohamed Ali 1er étage Rades ",
+      },
+      {
+        name: "Omar BEN HAJ SAID",
+        speciality: "Ophthalmologist",
+        city:"Tunis",
+        location:"8 avenue Habib bourguiba. Bardo medrar centre 4ème étage Le Bardo",
+      },
+      {
+        name: "Amel AZAIEZ",
+        speciality: "Ophthalmologist",
+        city:"Tunis",
+        location:"American Medical Centre Lake Tower 1er étage App 1 Cité les pins - Les bergers du Lac 2 Les Berges Du Lac 2",
+      },
+      {
+        name: "Souheil ROUISSI",
+        speciality: "Ophthalmologist",
+        city:"Ariana",
+        location:"Complexe Le Forum Ariana 4 Av. Taieb Mhiri",
+      },
+      {
+        name: "Mounir youssef MAKNI",
+        speciality: "Obstetrician Gynecologist",
+        city:"Tunis",
+        location:"CORAL MEDICAL App A 7-1 Centre urbain nord -Tunis 1082 7ème étage Centre Urbain Nord",
+      },
+      {
+        name: "Hedi REZIGA",
+        speciality: "Obstetrician Gynecologist",
+        city:"Ariana",
+        location:"Centre médical Abou El Kacem Chebbi 121 Av. La nouvelle Ere -Ennasr 2 -RDC - Cabinet 1 Cité Ennasr 2",
+      },
+      {
+        name: "Manel BEN KHEDIJA",
+        speciality: "Obstetrician Gynecologist",
+        city:"Tunis",
+        location:"Lachheb center 4ème Etage bureau 5( à côté pharmacie de nuit) avenue Habib Bourguiba  Le Bardo",
+      },
+      {
+        name: "Zina CHOUKET BEN TAHER",
+        speciality: "Obstetrician Gynecologist",
+        city:"Monastir",
+        location:"Avenue du Combattant Suprême, Imm. Khelifa",
+      },
+      {
+        name: "Chekib MOUELHI",
+        speciality: "Obstetrician Gynecologist",
+        city:"Tunis",
+        location:"Rue du Lac Léman, Résidence Les Bosquets Bloc A Les Berges Du Lac",
+      },
+      {
+        name: "Khadija MAHJOUB",
+        speciality: "Kinesiotherapist",
+        city:"Ariana",
+        location:"Centre médical Carnoy bureau 13 & 14 av d'Afrique Menzah 5 Ariana",
+      },
+   
+      {
+        name: "Mahdi OUESLATI",
+        speciality: "Kinesiotherapist",
+        city:"Mannouba",
+        location:"82 avenue habib bourguiba mornaguia Manouba Tunisie Mornaguia",
+      },
+      {
+        name: "Abir AMARA",
+        speciality: "Kinesiotherapist",
+        city:"Sousse",
+        location:"Centre médical carré Blanc en face de l'hôpital Farhat Hached 3éme étage avenue ibn El Jazzar",
+      },
+      {
+        name: "Afef MAAROUFI",
+        speciality: "Kinesiotherapist",
+        city:"Tunis",
+        location:"A1.1 N 1 rue SADOK MELLOULI. , La Marsa, Tunisia La Marsa",
+      },
+      {
+        name: "Yassine Maazoun",
+        speciality: "Kinesiotherapist",
+        city:"Ariana",
+        location:"116 Avenue Hedi Nouira Immeuble Erriadh au dessus de Ooredoo et salon de thé La Phalene Ennasr II Cité Ennasr 2",
+      },
+      {
+        name: "Hanen SAANOUNI",
+        speciality: "General Practitioner",
+        city:"Tunis",
+        location:"Centre Médical juste en face DES URGENCES DE L'HÔPITAL MONJI SLIM LA MARSA 1ER ETAGE- Cabinet n°1 Ain Zaghouan Nord  La Marsa ",
+      },
+      {
+        name: "Oumayma KHASSBI",
+        speciality: "General Practitioner",
+        city:"Ben arous",
+        location:"Centre médical al ahmadi 2eme etage appa n1 elmourouj 4 près du terminus métro ligne 6 El Mourouj 4",
+      },
+      {
+        name: "Fethi BOUDABOUS",
+        speciality: "General Practitioner",
+        city:"Tunis",
+        location:"Résidence nesrine Ettahrir supérieur tunis Ettahrir",
+      },
+      {
+        name: "Taoufik MARRAKCHI",
+        speciality: "General Practitioner",
+        city:"Tunis",
+        location:"Centre urbain nord immeuble Yasmine tower bloc A 6ème étage, App A63  Centre Urbain Nord",
+      },
+      {
+        name: "Mariam SAADALLAH RACHEK",
+        speciality: "General Practitioner",
+        city:"Ariana",
+        location:"9 avenue Habib bourguiba (dans la rue du café Bellar) ",
+      },
+      {
+        name: "Nadia KERKENI",
+        speciality: "Dermatologist",
+        city:"Tunis",
+        location:"Centre médical Coral en face de clinique Carthagéne - Avenue Zohra Faiza Bloc A 9éme étage cabinet 1 bis. Centre Urbain Nord",
+      },
+      {
+        name: "Sana SAID HAMILA",
+        speciality: "Dermatologist",
+        city:"Ariana",
+        location:"Centre médical Tunisie médicale Avenue Hédi Nouira Ennasr 2 Cité Ennasr 1",
+      },
+      {
+        name: "Zineb BENNANI",
+        speciality: "Dermatologist",
+        city:"Tunis",
+        location:"19, bis avenue de la république centre médical sabri 1 e étage La Marsa",
+      },
+      {
+        name: "Asma SIOUD DHRIF",
+        speciality: "Dermatologist",
+        city:"Tunis",
+        location:"Hannibal Médical Center – Cité des Pins, 3ème étage cabinet 3.8 Les Berges Du Lac 2",
+      },
+      {
+        name: "Chafik JARRAYA",
+        speciality: "Dermatologist",
+        city:"Ariana",
+        location:"5 Rue Taieb Mhiri Immeuble Morsi 1er étage",
+      },
+   
+  ];
+
+  module.exports = { doctors };
+  

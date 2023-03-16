@@ -1,30 +1,101 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/constants.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:chatapp/services/reviewservice.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Appointment extends StatefulWidget {
-  const Appointment({super.key});
+  const Appointment({Key? key, required this.doctor_id}) : super(key: key);
+  final String doctor_id;
 
   @override
   State<Appointment> createState() => _AppointmentState();
 }
 
 class _AppointmentState extends State<Appointment> {
-  List imgs = [
-    "doctor1.jpg",
-    "doctor2.jpg",
-    "doctor3.jpg",
-    "doctor4.jpg",
-    "doctor1.jpg",
-    "doctor2.jpg",
-    "doctor3.jpg",
-    "doctor4.jpg",
-  ];
+  Map<String, dynamic> _data = {};
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    Dio dio = new Dio();
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    final res = await dio
+        .get('https://medapp-jts3.onrender.com/doctors/${widget.doctor_id}');
+
+    setState(() {
+      _data = res.data;
+    });
+  }
+
+  void _addForm() async {
+    Map<String, dynamic>? result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddReview();
+      },
+    );
+    if (result != null) {
+      double rating = result['rating'] as double;
+      String review = result['review'] as String;
+      ReviewService().addreview(widget.doctor_id, rating, review);
+      setState(() {
+        fetchData();
+      });
+    }
+  }
+
+  // void _editForm() async {
+  //   Map<String, dynamic>? result = await showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return EditReview();
+  //     },
+  //   );
+  //   if (result != null) {
+  //     double rating = result['rating'] as double;
+  //     String review = result['review'] as String;
+  //     // ReviewService().updatereview(rating, review);
+  //   }
+  // }
+
+  String formatDate(String dateString) {
+    DateTime dateTime = DateTime.parse(dateString);
+    String formattedTime = DateFormat.Hm().format(dateTime);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
+    return '$formattedTime, $formattedDate';
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_data.isEmpty) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    final doctor = _data['doctor'];
+    final reviews = _data['reviews'];
+    double sum = 0;
+    for (int i = 0; i < reviews.length; i++) {
+      sum += reviews[i]['rate'];
+    }
+    double averageRating = sum / reviews.length;
+    double roundedRating = double.parse(averageRating.toStringAsFixed(1));
+
+    double doctorReview = roundedRating <= 5 ? roundedRating : 5;
+
     return Scaffold(
       backgroundColor: primaryColor,
       body: SingleChildScrollView(
@@ -57,13 +128,13 @@ class _AppointmentState extends State<Appointment> {
                       children: [
                         CircleAvatar(
                           radius: 35,
-                          backgroundImage: AssetImage("images/doctor1.jpg"),
+                          child: SvgPicture.asset("images/user.svg"),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Dr. Doctor Name",
+                              doctor['name'],
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
@@ -72,7 +143,7 @@ class _AppointmentState extends State<Appointment> {
                             ),
                             SizedBox(height: 5),
                             Text(
-                              "Therapist",
+                              doctor['speciality'],
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -80,62 +151,62 @@ class _AppointmentState extends State<Appointment> {
                                 letterSpacing: 2,
                               ),
                             ),
-                            SizedBox(height: 15),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                      color: Colors.amber.shade400,
-                                      shape: BoxShape.circle),
-                                  child: Icon(
-                                    Icons.email,
-                                    color: Colors.white,
-                                    size: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Text(
-                                  'doctor@gmail.com',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      letterSpacing: 2,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
+                            SizedBox(height: 40),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   children: [
+                            //     Container(
+                            //       padding: EdgeInsets.all(8),
+                            //       decoration: BoxDecoration(
+                            //           color: Colors.amber.shade400,
+                            //           shape: BoxShape.circle),
+                            //       child: Icon(
+                            //         Icons.email,
+                            //         color: Colors.white,
+                            //         size: 15,
+                            //       ),
+                            //     ),
+                            //     SizedBox(
+                            //       width: 15,
+                            //     ),
+                            //     Text(
+                            //       'doctor@gmail.com',
+                            //       style: TextStyle(
+                            //           fontSize: 12,
+                            //           letterSpacing: 2,
+                            //           color: Colors.white),
+                            //     ),
+                            //   ],
+                            // ),
                             SizedBox(
                               height: 5,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                      color: Colors.amber.shade400,
-                                      shape: BoxShape.circle),
-                                  child: Icon(
-                                    Icons.call,
-                                    color: Colors.white,
-                                    size: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Text(
-                                  '+216 xx xxx xxx',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      letterSpacing: 2,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            )
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.start,
+                            //   children: [
+                            //     Container(
+                            //       padding: EdgeInsets.all(8),
+                            //       decoration: BoxDecoration(
+                            //           color: Colors.amber.shade400,
+                            //           shape: BoxShape.circle),
+                            //       child: Icon(
+                            //         Icons.call,
+                            //         color: Colors.white,
+                            //         size: 15,
+                            //       ),
+                            //     ),
+                            //     SizedBox(
+                            //       width: 15,
+                            //     ),
+                            //     Text(
+                            //       '+216 xx xxx xxx',
+                            //       style: TextStyle(
+                            //           fontSize: 12,
+                            //           letterSpacing: 2,
+                            //           color: Colors.white),
+                            //     ),
+                            //   ],
+                            // )
                           ],
                         ),
                       ],
@@ -144,7 +215,7 @@ class _AppointmentState extends State<Appointment> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             Container(
               height: MediaQuery.of(context).size.height / 1.3,
               width: double.infinity,
@@ -169,13 +240,13 @@ class _AppointmentState extends State<Appointment> {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typset",
+                    doctor['name'],
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 40),
                   Row(
                     children: [
                       Text(
@@ -191,7 +262,7 @@ class _AppointmentState extends State<Appointment> {
                         color: Colors.amber.shade400,
                       ),
                       Text(
-                        "4.9",
+                        "${doctorReview}",
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -199,7 +270,7 @@ class _AppointmentState extends State<Appointment> {
                       ),
                       SizedBox(width: 5),
                       Text(
-                        "(124)",
+                        "(${reviews.length})",
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -207,13 +278,10 @@ class _AppointmentState extends State<Appointment> {
                       ),
                       Spacer(),
                       TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "See all",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: primaryColor),
+                        onPressed: _addForm,
+                        child: Icon(
+                          Icons.add_circle_outline,
+                          color: Colors.black,
                         ),
                       )
                     ],
@@ -222,7 +290,7 @@ class _AppointmentState extends State<Appointment> {
                     height: 160,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 8,
+                      itemCount: reviews.length,
                       itemBuilder: (context, index) {
                         return Container(
                           margin: EdgeInsets.all(10),
@@ -245,15 +313,15 @@ class _AppointmentState extends State<Appointment> {
                                 ListTile(
                                   leading: CircleAvatar(
                                     radius: 25,
-                                    backgroundImage:
-                                        AssetImage("images/${imgs[index]}"),
+                                    child: SvgPicture.asset("images/user.svg"),
                                   ),
                                   title: Text(
-                                    "Dr. Doctor Name",
+                                    reviews[index]["author"]["username"],
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  subtitle: Text("1 day ago"),
+                                  subtitle: Text(
+                                      formatDate(reviews[index]["created_at"])),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -263,7 +331,7 @@ class _AppointmentState extends State<Appointment> {
                                         color: Colors.amber.shade400,
                                       ),
                                       Text(
-                                        "4.9",
+                                        "${reviews[index]["rate"]}",
                                         style: TextStyle(color: Colors.black54),
                                       )
                                     ],
@@ -272,9 +340,41 @@ class _AppointmentState extends State<Appointment> {
                                 SizedBox(height: 5),
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text(
-                                    "Many thanks to Dr. Dear. He is a great and professional doctor",
-                                    style: TextStyle(color: Colors.black),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        reviews[index]["review"],
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          // Icon(
+                                          //   Icons.edit,
+                                          //   color: Colors.black,
+                                          //   size: 15,
+                                          // ),
+                                          // SizedBox(
+                                          //   width: 10,
+                                          // ),
+                                          TextButton(
+                                            onPressed: () {
+                                              ReviewService().deletereview(
+                                                  reviews[index]['_id']);
+                                              setState(() {
+                                                fetchData();
+                                              });
+                                            },
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Colors.black,
+                                              size: 15,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 )
                               ],
@@ -284,7 +384,7 @@ class _AppointmentState extends State<Appointment> {
                       },
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 30),
                   Text(
                     "Location",
                     style: TextStyle(
@@ -304,15 +404,16 @@ class _AppointmentState extends State<Appointment> {
                       ),
                     ),
                     title: Text(
-                      "New York, Medical Center",
+                      doctor['city'],
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     subtitle: Text(
-                      "address line of the medical center",
+                      doctor['location'],
                     ),
                   ),
+                  SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Row(
@@ -328,7 +429,7 @@ class _AppointmentState extends State<Appointment> {
                           width: 50,
                         ),
                         Text(
-                          "\$100",
+                          "60 TND",
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -367,4 +468,208 @@ class _AppointmentState extends State<Appointment> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }
+
+class AddReview extends StatefulWidget {
+  const AddReview({super.key});
+
+  @override
+  State<AddReview> createState() => _AddReviewState();
+}
+
+class _AddReviewState extends State<AddReview> {
+  TextEditingController _textController = TextEditingController();
+  double _rating = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Add Review'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: _rating >= 1 ? Icon(Icons.star) : Icon(Icons.star_border),
+                color: Colors.amber,
+                onPressed: () {
+                  setState(() {
+                    _rating = 1;
+                  });
+                },
+              ),
+              IconButton(
+                icon: _rating >= 2 ? Icon(Icons.star) : Icon(Icons.star_border),
+                color: Colors.amber,
+                onPressed: () {
+                  setState(() {
+                    _rating = 2;
+                  });
+                },
+              ),
+              IconButton(
+                icon: _rating >= 3 ? Icon(Icons.star) : Icon(Icons.star_border),
+                color: Colors.amber,
+                onPressed: () {
+                  setState(() {
+                    _rating = 3;
+                  });
+                },
+              ),
+              IconButton(
+                icon: _rating >= 4 ? Icon(Icons.star) : Icon(Icons.star_border),
+                color: Colors.amber,
+                onPressed: () {
+                  setState(() {
+                    _rating = 4;
+                  });
+                },
+              ),
+              IconButton(
+                icon: _rating >= 5 ? Icon(Icons.star) : Icon(Icons.star_border),
+                color: Colors.amber,
+                onPressed: () {
+                  setState(() {
+                    _rating = 5;
+                  });
+                },
+              ),
+            ],
+          ),
+          TextField(
+            controller: _textController,
+            decoration: InputDecoration(
+              hintText: 'Enter your review',
+              border: OutlineInputBorder(),
+            ),
+            minLines: 1,
+            maxLines: 5,
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text('CANCEL'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: Text('OK'),
+          onPressed: () {
+            Navigator.of(context).pop({
+              'rating': _rating,
+              'review': _textController.text,
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
+// class EditReview extends StatefulWidget {
+//   const EditReview({super.key});
+
+//   @override
+//   State<EditReview> createState() => _EditReviewState();
+// }
+
+// class _EditReviewState extends State<EditReview> {
+//   TextEditingController _textController = TextEditingController();
+//   double _rating = 0;
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       title: Text('Edit Review'),
+//       content: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: <Widget>[
+//               IconButton(
+//                 icon: _rating >= 1 ? Icon(Icons.star) : Icon(Icons.star_border),
+//                 color: Colors.amber,
+//                 onPressed: () {
+//                   setState(() {
+//                     _rating = 1;
+//                   });
+//                 },
+//               ),
+//               IconButton(
+//                 icon: _rating >= 2 ? Icon(Icons.star) : Icon(Icons.star_border),
+//                 color: Colors.amber,
+//                 onPressed: () {
+//                   setState(() {
+//                     _rating = 2;
+//                   });
+//                 },
+//               ),
+//               IconButton(
+//                 icon: _rating >= 3 ? Icon(Icons.star) : Icon(Icons.star_border),
+//                 color: Colors.amber,
+//                 onPressed: () {
+//                   setState(() {
+//                     _rating = 3;
+//                   });
+//                 },
+//               ),
+//               IconButton(
+//                 icon: _rating >= 4 ? Icon(Icons.star) : Icon(Icons.star_border),
+//                 color: Colors.amber,
+//                 onPressed: () {
+//                   setState(() {
+//                     _rating = 4;
+//                   });
+//                 },
+//               ),
+//               IconButton(
+//                 icon: _rating >= 5 ? Icon(Icons.star) : Icon(Icons.star_border),
+//                 color: Colors.amber,
+//                 onPressed: () {
+//                   setState(() {
+//                     _rating = 5;
+//                   });
+//                 },
+//               ),
+//             ],
+//           ),
+//           TextField(
+//             controller: _textController,
+//             decoration: InputDecoration(
+//               hintText: 'Enter your review',
+//               border: OutlineInputBorder(),
+//             ),
+//             minLines: 1,
+//             maxLines: 5,
+//           ),
+//         ],
+//       ),
+//       actions: <Widget>[
+//         TextButton(
+//           child: Text('CANCEL'),
+//           onPressed: () {
+//             Navigator.of(context).pop();
+//           },
+//         ),
+//         TextButton(
+//           child: Text('OK'),
+//           onPressed: () {
+//             Navigator.of(context).pop({
+//               'rating': _rating,
+//               'review': _textController.text,
+//             });
+//           },
+//         ),
+//       ],
+//     );
+//   }
+// }

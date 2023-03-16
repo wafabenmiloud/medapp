@@ -170,11 +170,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                       onTap: () {
                         AppointmentService().addappoint(
                             selectedDoctor, dateInput.text, timeinput.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Navbar()),
-                        );
+                        Navigator.pop(context, true);
                       },
                       child: Container(
                         width: 250,

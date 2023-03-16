@@ -9,6 +9,7 @@ import 'package:chatapp/widgets/completed_schedule.dart';
 import 'package:chatapp/widgets/navbar.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,7 +34,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
     final token = prefs.getString('token');
     Dio dio = new Dio();
     dio.options.headers['Authorization'] = 'Bearer $token';
-    final res = await dio.get('http://localhost:4000/getappoint');
+    final res = await dio.get('https://medapp-jts3.onrender.com/getappoint');
     final data = res.data;
     final upcomingAppointments = data['upcomingAppointments'];
     setState(() {
@@ -81,7 +82,7 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                         subtitle: Text("Therapist"),
                         trailing: CircleAvatar(
                           radius: 25,
-                          backgroundImage: AssetImage("images/doctor1.jpg"),
+                          child: SvgPicture.asset("images/user.svg"),
                         ),
                       ),
                       Padding(
@@ -131,13 +132,9 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                             onTap: () {
                               final id = appointment['_id'];
                               AppointmentService().deleteappoint(id);
-                              Fluttertoast.showToast(
-                                  msg: 'Appointment Canceled',
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  backgroundColor: Colors.green,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0);
+                              setState(() {
+                                fetchData();
+                              });
                             },
                             child: Container(
                               width: 150,
@@ -164,7 +161,11 @@ class _UpcomingScheduleState extends State<UpcomingSchedule> {
                                   MaterialPageRoute(builder: (context) {
                                 return UpdateAppointment(
                                     id: id, doctor: doctor);
-                              }));
+                              })).then((value) {
+                                if (value == true) {
+                                  fetchData();
+                                }
+                              });
                             },
                             child: Container(
                               width: 150,

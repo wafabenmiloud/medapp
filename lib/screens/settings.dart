@@ -5,6 +5,7 @@ import 'package:chatapp/screens/login_screen.dart';
 import 'package:chatapp/screens/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
@@ -44,7 +45,7 @@ class _SettingsState extends State<Settings> {
               );
             },
             leading: CircleAvatar(
-              backgroundImage: AssetImage("images/doctor1.jpg"),
+              child: SvgPicture.asset("images/user.svg"),
             ),
             title: Text(
               "Wafa",
