@@ -1,7 +1,0 @@
-theme (dark/light mode)
-
-2/doctors
-    get (dashboardScreen/ScheduleScreen/AppointmentScreen)
-3/patients
-    get Notifications
-    add/update/delete review
